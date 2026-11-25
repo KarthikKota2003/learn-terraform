@@ -1,13 +1,18 @@
 variable "ami_id"{
     type = string
-    default = "ami-0055977a6e828a4f4"
+    # default = "ami-0055977a6e828a4f4"
     description = "AMI ID of ec2 image"
 }
 
 variable "instance_type"{
     type = string
-    default = "t3.micro"
+    default = "t3.large"
     description = "Instance type of ec2 server"
+
+    validation{
+        condition = contains(["t3.micro","t8i.micro","t3.small"],var.instance_type)
+        error_message = "The instance type you selected is heavy"
+    }
 }
 
 variable "ec2_tags"{
